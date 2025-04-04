@@ -1,21 +1,29 @@
 import './style.css'
-import {displayarr} from "./display.js";
+import {newarr, shuffle,sort} from "./display.js";
+import {stopSort} from "./sorting.js";
 
 document.querySelector('#app').innerHTML = `
   
  <header id="main-header">
 <h1>
- Hello
+ Sort Visualizer
 </h1> 
 </header> 
   
 <main id="main-content">
 <div id="main-ui">
-    <h1 style="color: white">Enter # of rows(1-250)</h1>
+    <h1 style="color: white">Enter # of bars(1-250)</h1>
     <input id="row-input" type="text">
 
 <div>
-    <button id="sort-button" type="button">Sort</button>
+<select id="sorts">
+<option value="1">Bogo Sort</option>
+<option value="2">Bubble Sort</option>
+</select>
+
+    <button id="shuffle-btn" type="button">Shuffle</button>
+    <button id="sort-btn" type="button">Sort</button>
+    
 </div>
 
 </div>
@@ -27,5 +35,6 @@ document.querySelector('#app').innerHTML = `
 
 `
 
-document.getElementById("row-input").addEventListener('input', (e) => displayarr(e.target.value));
-
+document.getElementById("row-input").addEventListener('input', (e) => newarr(e.target.value));
+document.getElementById("shuffle-btn").addEventListener('click', (e) => shuffle());
+document.getElementById("sort-btn").addEventListener('click', (e) => sort(1));
