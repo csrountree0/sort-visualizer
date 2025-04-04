@@ -1,17 +1,20 @@
 var size = 0
 var arr = []
-import {bogoSort} from './sorting.js';
+import {bogoSort, bubbleSort, insertionSort, selectionSort} from './sorting.js';
 export function newarr(s) {
     arr=[]
     for (let i = 0; i < s; i++) {
         arr[i] = i+1
     }
-    displayarr();
+    displayarr(-1,-1);
 }
 
-export function  displayarr() {
-   //document.getElementById('s-bar').innerHTML = "";
-    //console.log(arr)
+export function update(ar,cu,co){
+    arr = ar
+    displayarr(cu,co)
+}
+
+export function  displayarr(curr,comp) {
     size = arr.length;
 
     if(size > 250){
@@ -22,9 +25,18 @@ export function  displayarr() {
 
     let div = document.createElement("div");
     div.className = "square";
-    for (let i = 1; i <= size; i++) {
+    for (let i = 0; i < size; i++) {
+        if(i === curr){
+            div.style.backgroundColor = `green`
+        }
+        else if(i===comp){
+            div.style.backgroundColor = `red`
+        }
+        else{
+            div.style.backgroundColor = 'white'
+        }
         div.style.width = `${100/size}%`;
-        div.style.height = `${(arr[i-1]/size)*100}%`;
+        div.style.height = `${(arr[i]/size)*100}%`;
         //div.style.marginTop = `${100-h}%`;
         document.getElementById("s-bar").innerHTML +=div.outerHTML;
     }
@@ -40,13 +52,37 @@ export function shuffle() {
 }
 
 
-export function sort(val,press) {
+export function sort(val) {
 
-    if(val===1){
-        bogoSort(arr,press)
-
+    if(val==="1"){
+        bogoSort(arr)
     }
+    else if(val==="2"){
+        bubbleSort(arr)
+    }
+    else if(val==="3"){
+        selectionSort(arr)
+    }
+    else if (val ==="4"){
+        insertionSort(arr)
+    }
+}
 
 
+export function done(arr,j){
+    document.getElementById("s-bar").innerHTML = "";
+    let div = document.createElement("div");
+    for(let i = 0; i < arr.length; i++){
+        div.className = "square";
+        if(arr[i] <= j){
+            div.style.backgroundColor = `green`
+        }
+        else{
+            div.style.backgroundColor = `white`
+        }
+        div.style.width = `${100/size}%`;
+        div.style.height = `${(arr[i]/size)*100}%`;
+        document.getElementById("s-bar").innerHTML +=div.outerHTML;
+    }
 }
 

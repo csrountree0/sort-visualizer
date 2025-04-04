@@ -1,6 +1,6 @@
 import './style.css'
 import {newarr, shuffle,sort} from "./display.js";
-import {stopSort} from "./sorting.js";
+import {bogoSort, stopSort} from "./sorting.js";
 
 document.querySelector('#app').innerHTML = `
   
@@ -19,6 +19,9 @@ document.querySelector('#app').innerHTML = `
 <select id="sorts">
 <option value="1">Bogo Sort</option>
 <option value="2">Bubble Sort</option>
+<option value="3">Selection Sort</option>
+<option value="4">Insertion Sort</option>
+
 </select>
 
     <button id="shuffle-btn" type="button">Shuffle</button>
@@ -37,4 +40,6 @@ document.querySelector('#app').innerHTML = `
 
 document.getElementById("row-input").addEventListener('input', (e) => newarr(e.target.value));
 document.getElementById("shuffle-btn").addEventListener('click', (e) => shuffle());
-document.getElementById("sort-btn").addEventListener('click', (e) => sort(1));
+
+
+document.getElementById("sort-btn").addEventListener('click', (e) => sort(document.getElementById("sorts").value));
