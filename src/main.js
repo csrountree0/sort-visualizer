@@ -20,7 +20,7 @@ document.querySelector('#app').innerHTML = `
 <option value="3">Selection Sort</option>
 <option value="4">Insertion Sort</option>
 <option value="5">Merge Sort</option>
-
+<option value="6">Quick Sort</option>
 </select>
 
 <div id="buttons">

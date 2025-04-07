@@ -1,6 +1,6 @@
 var size = 0
 var arr = []
-import {bogoSort, bubbleSort, insertionSort, selectionSort} from './sorting.js';
+import {bogoSort, bubbleSort, insertionSort, selectionSort, mergeSort, quickSort} from './sorting.js';
 export function newarr(s) {
     arr=[]
     for (let i = 0; i < s; i++) {
@@ -70,7 +70,6 @@ export function shuffle() {
 
 
 export function sort(val) {
-
     if(val==="1"){
         bogoSort(arr)
     }
@@ -83,23 +82,25 @@ export function sort(val) {
     else if (val ==="4"){
         insertionSort(arr)
     }
+    else if (val ==="5"){
+        mergeSort(arr)
+    }
+    else if (val ==="6"){
+        quickSort(arr)
+    }
 }
 
 
-export function done(arr,j){
-    document.getElementById("s-bar").innerHTML = "";
-    let div = document.createElement("div");
-    for(let i = 0; i < arr.length; i++){
-        div.className = "square";
-        if(arr[i] <= j){
-            div.style.backgroundColor = `green`
+export function done(arr, j) {
+    const divs = document.getElementsByClassName("square");
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] <= j) {
+            divs[i].style.backgroundColor = 'green';
+        } else {
+            divs[i].style.backgroundColor = 'white';
         }
-        else{
-            div.style.backgroundColor = `white`
-        }
-        div.style.width = `${100/size}%`;
-        div.style.height = `${(arr[i]/size)*100}%`;
-        document.getElementById("s-bar").innerHTML +=div.outerHTML;
+        divs[i].style.height = `${(arr[i]/size)*100}%`;
     }
 }
 

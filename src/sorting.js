@@ -103,24 +103,100 @@ export async function insertionSort(arr){
 
 }
 
-function merge(left, right) {
-    let sortedArr = []
-    while (left.length && right.length) {
-        if (left[0] < right[0]) {
-            sortedArr.push(left.shift())
+async function merge(arr, start, mid, end) {
+    let left = arr.slice(start, mid);
+    let right = arr.slice(mid, end);
+    let leftIndex = 0;
+    let rightIndex = 0;
+    let currentIndex = start;
+    
+    while (leftIndex < left.length && rightIndex < right.length && !stop) {
+        displayarr(currentIndex, -1);
+        if (left[leftIndex] < right[rightIndex]) {
+            arr[currentIndex] = left[leftIndex];
+            leftIndex++;
         } else {
-            sortedArr.push(right.shift())
+            arr[currentIndex] = right[rightIndex];
+            rightIndex++;
         }
+        currentIndex++;
+        await new Promise(requestAnimationFrame);
     }
-
-    return [...sortedArr, ...left, ...right]
+    
+    while (leftIndex < left.length && !stop) {
+        displayarr(currentIndex, -1);
+        arr[currentIndex] = left[leftIndex];
+        leftIndex++;
+        currentIndex++;
+        await new Promise(requestAnimationFrame);
+    }
+    
+    while (rightIndex < right.length && !stop) {
+        displayarr(currentIndex, -1);
+        arr[currentIndex] = right[rightIndex];
+        rightIndex++;
+        currentIndex++;
+        await new Promise(requestAnimationFrame);
+    }
 }
 
-function mergeSort(arr) {
-    if (arr.length <= 1) return arr
-    let mid = Math.floor(arr.length / 2)
-    let left = mergeSort(arr.slice(0, mid))
-    let right = mergeSort(arr.slice(mid))
-    return merge(left, right)
+export async function mergeSort(arr, start = 0, end = arr.length) {
+    if (end - start <= 1) return;
+    
+    let mid = Math.floor((start + end) / 2);
+    
+    if (!stop) {
+        await mergeSort(arr, start, mid);
+        await mergeSort(arr, mid, end);
+        await merge(arr, start, mid, end);
+    }
+    
+    if (start === 0 && end === arr.length && !stop) {
+        displayarr(-1, -1);
+        displayDone(arr);
+    }
+}
+
+async function partition(arr, low, high) {
+    // Choose the rightmost element as pivot
+    let pivot = arr[high];
+    let i = low - 1;  // Index of smaller element
+
+    for (let j = low; j < high && !stop; j++) {
+        // If current element is smaller than the pivot
+        displayarr(j, high);  // Show current element and pivot
+        if (arr[j] < pivot) {
+            i++;
+            // Swap arr[i] and arr[j]
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+            displayarr(i, j);  // Show the swap
+            await new Promise(requestAnimationFrame);
+        }
+        await new Promise(requestAnimationFrame);
+    }
+
+    // Swap arr[i+1] and arr[high] (pivot)
+    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+    displayarr(i + 1, high);  // Show the final pivot placement
+    await new Promise(requestAnimationFrame);
+
+    return i + 1;  // Return the partition index
+}
+
+export async function quickSort(arr, low = 0, high = arr.length - 1) {
+    if (low < high && !stop) {
+        // Get the partition index
+        let pi = await partition(arr, low, high);
+
+        // Recursively sort elements before and after partition
+        await quickSort(arr, low, pi - 1);
+        await quickSort(arr, pi + 1, high);
+    }
+
+    // If this is the outermost call and we're not stopped
+    if (low === 0 && high === arr.length - 1 && !stop) {
+        displayarr(-1, -1);
+        displayDone(arr);
+    }
 }
 
