@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
-import { ghPages } from 'vite-plugin-gh-pages';
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [ghPages()],
   base: '/sort-visualizer',
+  plugins: [react()],
 });
 
