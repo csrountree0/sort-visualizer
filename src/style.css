@@ -26,8 +26,15 @@ background-color: white;
   justify-content: center;
 }
 
-#s-bar{
+#buttons{
+  padding-top: 1rem;
+}
+#reset-btn{
+  background-color: red;
+}
 
+
+#s-bar{
   display: flex;
   flex-direction: row;
   align-items: flex-end;

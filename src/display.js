@@ -6,7 +6,7 @@ export function newarr(s) {
     for (let i = 0; i < s; i++) {
         arr[i] = i+1
     }
-    displayarr(-1,-1);
+    createarr(-1,-1);
 }
 
 export function update(ar,cu,co){
@@ -14,7 +14,7 @@ export function update(ar,cu,co){
     displayarr(cu,co)
 }
 
-export function  displayarr(curr,comp) {
+export function  createarr(curr,comp) {
     size = arr.length;
 
     if(size > 250){
@@ -40,8 +40,25 @@ export function  displayarr(curr,comp) {
         //div.style.marginTop = `${100-h}%`;
         document.getElementById("s-bar").innerHTML +=div.outerHTML;
     }
+
 }
 
+export function displayarr(curr, comp){
+    let divs = document.getElementsByClassName("square");
+
+    for(let i=0; i<arr.length; i++){
+        if(i === curr){
+            divs[i].style.backgroundColor = `green`
+        }
+        else if(i===comp){
+            divs[i].style.backgroundColor = `red`
+        }
+        else{
+            divs[i].style.backgroundColor = 'white'
+        }
+        divs[i].style.height = `${(arr[i]/size)*100}%`;
+    }
+}
 
 export function shuffle() {
     for (let i = 0; i < arr.length; i++) {
