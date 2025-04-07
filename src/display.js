@@ -61,12 +61,24 @@ export function displayarr(curr, comp){
 }
 
 export function shuffle() {
-    shuffled= true;
+    shuffled = true; 
+    const divs = document.getElementsByClassName("square");
+    for (let i = 0; i < arr.length; i++) {
+        divs[i].style.transition = 'height 0.2s ease-out';
+    }
+    
     for (let i = 0; i < arr.length; i++) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    displayarr(arr)
+    displayarr(-1,-1);
+    
+    
+    setTimeout(() => {
+        for (let i = 0; i < arr.length; i++) {
+            divs[i].style.transition = 'none';
+        }
+    }, 200);
 }
 
 
