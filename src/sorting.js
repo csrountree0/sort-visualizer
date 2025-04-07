@@ -4,15 +4,19 @@ var stop = false;
 
 // reset stop to false
 export function reset(){
-    console.log("Hello")
+
+    document.getElementById("shuffle-btn").disabled = false;
+    document.getElementById("sort-btn").disabled = false;
+    document.getElementById("row-input").disabled = false;
+
     stop = true;
     newarr(document.getElementById("row-input").value);
 
 }
 
 // stop sorting
-export function stopSort(){
-    stop = true;
+export function setStop(tf){
+    stop = tf;
 }
 
 export function isSorted(arr){
@@ -60,7 +64,7 @@ export async function bubbleSort(arr){
 }
 
 export async function selectionSort(arr){
-    for(let i = 0; i<arr.length; i++){
+    for(let i = 0; i<arr.length && !stop; i++){
         let min = i;
         for(let j=i; j<arr.length && !stop;  j++){
             if(arr[j]<arr[min]){
@@ -78,16 +82,13 @@ export async function selectionSort(arr){
     await new Promise(requestAnimationFrame)
     displayDone(arr)
 
-
-
-
 }
 
 
 
 export async function insertionSort(arr){
     for(let i = 0; i < arr.length-1 && !stop; i++){
-        for(let j=i+1; j>=1; j--){
+        for(let j=i+1; j>=1 && !stop; j--){
             if(arr[j] < arr[j-1]){
                 [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
             }
@@ -158,42 +159,40 @@ export async function mergeSort(arr, start = 0, end = arr.length) {
 }
 
 async function partition(arr, low, high) {
-    // Choose the rightmost element as pivot
     let pivot = arr[high];
-    let i = low - 1;  // Index of smaller element
+    let i = low - 1;
 
     for (let j = low; j < high && !stop; j++) {
-        // If current element is smaller than the pivot
-        displayarr(j, high);  // Show current element and pivot
+        displayarr(j, high);
         if (arr[j] < pivot) {
             i++;
-            // Swap arr[i] and arr[j]
             [arr[i], arr[j]] = [arr[j], arr[i]];
-            displayarr(i, j);  // Show the swap
+            displayarr(i, j);
             await new Promise(requestAnimationFrame);
         }
         await new Promise(requestAnimationFrame);
     }
 
-    // Swap arr[i+1] and arr[high] (pivot)
     [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-    displayarr(i + 1, high);  // Show the final pivot placement
-    await new Promise(requestAnimationFrame);
 
-    return i + 1;  // Return the partition index
+
+    if(!stop) {
+
+
+        displayarr(i + 1, high);
+        await new Promise(requestAnimationFrame);
+    }
+    return i + 1;
 }
 
 export async function quickSort(arr, low = 0, high = arr.length - 1) {
     if (low < high && !stop) {
-        // Get the partition index
         let pi = await partition(arr, low, high);
 
-        // Recursively sort elements before and after partition
         await quickSort(arr, low, pi - 1);
         await quickSort(arr, pi + 1, high);
     }
 
-    // If this is the outermost call and we're not stopped
     if (low === 0 && high === arr.length - 1 && !stop) {
         displayarr(-1, -1);
         displayDone(arr);

@@ -1,17 +1,17 @@
 var size = 0
 var arr = []
-import {bogoSort, bubbleSort, insertionSort, selectionSort, mergeSort, quickSort} from './sorting.js';
+import {bogoSort, bubbleSort, insertionSort, selectionSort, mergeSort, quickSort, setStop} from './sorting.js';
+
+var shuffled = false
+
+
 export function newarr(s) {
+    shuffled = false
     arr=[]
     for (let i = 0; i < s; i++) {
         arr[i] = i+1
     }
     createarr(-1,-1);
-}
-
-export function update(ar,cu,co){
-    arr = ar
-    displayarr(cu,co)
 }
 
 export function  createarr(curr,comp) {
@@ -61,6 +61,7 @@ export function displayarr(curr, comp){
 }
 
 export function shuffle() {
+    shuffled= true;
     for (let i = 0; i < arr.length; i++) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -70,23 +71,28 @@ export function shuffle() {
 
 
 export function sort(val) {
-    if(val==="1"){
+    if(shuffled) {
+    setStop(false)
+    document.getElementById("shuffle-btn").disabled = true;
+    document.getElementById("sort-btn").disabled = true;
+    document.getElementById("row-input").disabled = true;
+
+    if (val === "1") {
         bogoSort(arr)
-    }
-    else if(val==="2"){
+    } else if (val === "2") {
         bubbleSort(arr)
-    }
-    else if(val==="3"){
+    } else if (val === "3") {
         selectionSort(arr)
-    }
-    else if (val ==="4"){
+    } else if (val === "4") {
         insertionSort(arr)
-    }
-    else if (val ==="5"){
+    } else if (val === "5") {
         mergeSort(arr)
-    }
-    else if (val ==="6"){
+    } else if (val === "6") {
         quickSort(arr)
+    }
+}
+    else{
+        console.log("already sorted")
     }
 }
 
