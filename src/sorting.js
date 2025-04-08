@@ -92,6 +92,9 @@ export async function insertionSort(arr){
             if(arr[j] < arr[j-1]){
                 [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
             }
+            else{
+                break;
+            }
             displayarr(j,j-1)
             await new Promise(requestAnimationFrame)
         }
