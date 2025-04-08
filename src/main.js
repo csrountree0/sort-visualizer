@@ -5,9 +5,14 @@ import {reset} from "./sorting.js";
 document.querySelector('#app').innerHTML = `
   
  <header id="main-header">
-<h1>
- Sort Visualizer
-</h1> 
+ <div class="side">
+ 
+ <a id="gh-link" href="https://github.com/csrountree0" target="_blank"><img id="gh-img" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="github"></a>
+ 
+</div>
+
+<h1>Sort Visualizer</h1> 
+<div class="side"></div>
 </header> 
   
 <main id="main-content">
