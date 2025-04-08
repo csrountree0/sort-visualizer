@@ -47,6 +47,14 @@ align-content: center;
   justify-content: center;
 }
 
+#row-input{
+  width: 10%;
+  color: white;
+ text-align: center;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+}
+
 #buttons{
   padding-top: 1rem;
 }
@@ -56,6 +64,7 @@ align-content: center;
 
 #sorts{
   color: white;
+  background-color: #1a1a1a;
   border-radius: 0;
 }
 
